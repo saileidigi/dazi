@@ -22,9 +22,9 @@ module.exports = {
         `${cdnUrlBase}/ant-design-vue@2.0.0-rc.3/dist/antd${min}.css`
       ],
       js: [
-        `${cdnUrlBase}/vue@3.0.4/dist/vue.global${min}.js`,
-        `${cdnUrlBase}/vuex@4.0.0-rc.2/dist/vuex.global${min}.js`,
-        `${cdnUrlBase}/vue-router@4.0.1/dist/vue-router.global${min}.js`,
+        `${cdnUrlBase}/vue@3.0.4/dist/vue.global${min && '.prod'}.js`,
+        `${cdnUrlBase}/vuex@4.0.0-rc.2/dist/vuex.global${min && '.prod'}.js`,
+        `${cdnUrlBase}/vue-router@4.0.1/dist/vue-router.global${min && '.prod'}.js`,
         `${cdnUrlBase}/axios@0.21.0/dist/axios${min}.js`,
         `${cdnUrlBase}/ant-design-vue@2.0.0-rc.3/dist/antd${min}.js`
       ]
@@ -61,10 +61,7 @@ module.exports = {
   pwa: {
     name: '打字练习',
     manifestOptions: {
-      start_url: '/dazi'
-    },
-    workboxOptions: {
-      importScripts: 'https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.4/workbox/workbox-sw.min.js'
+      start_url: '/dazi/'
     }
   }
 }

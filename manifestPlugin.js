@@ -15,8 +15,11 @@ manifestPlugin.prototype.apply = function(compiler) {
         let source = asset.source().replace(/\.(\/img\/icons)/g, cdnRootPath + '/dazi$1')
         asset.source = function() { return source }
       } else if (filename === 'service-worker.js') {
-        // 删除 google workbox
-        let source = asset.source().replace(/importScripts.+workbox-sw\.js"\);/, '')
+        // workbox cdn
+        let source = asset.source().replace(
+          /https:\/\/storage.+workbox-sw\.js/,
+          'https://cdn.jsdelivr.net/npm/workbox-cdn@4.3.1/workbox/workbox-sw.js'
+        )
         asset.source = function() { return source }
       }
     })
