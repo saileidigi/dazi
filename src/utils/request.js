@@ -1,6 +1,7 @@
 import axios from "axios";
-import message from "ant-design-vue/lib/message";
 import { getToken } from "./token";
+
+let NetworkErrorShowed = false;
 
 /**
  * 创建 AxiosInstance
@@ -17,8 +18,9 @@ export default config => {
       return config;
     },
     error => {
-      message.error({
-        content: error.message
+      // 提示错误
+      window.antd.notification.error({
+        message: error.message
       });
       return Promise.reject(error);
     }
@@ -28,8 +30,16 @@ export default config => {
   instance.interceptors.response.use(
     response => response.data,
     error => {
-      message.error({
-        content: (error.response && error.response.data) || error.message
+      // 提示错误
+      if (error.message === "Network Error") {
+        if (NetworkErrorShowed) return Promise.reject(error);
+
+        NetworkErrorShowed = true;
+      }
+
+      window.antd.notification.error({
+        message: (error.response && error.response.status) || error.message,
+        description: error.response && error.response.data
       });
 
       return Promise.reject(error);

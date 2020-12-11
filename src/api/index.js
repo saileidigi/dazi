@@ -1,4 +1,3 @@
-import notification from "ant-design-vue/lib/notification";
 import createRequest from "@/utils/request";
 import { getToken, setToken } from "@/utils/token";
 
@@ -23,7 +22,7 @@ const query = async (type, data) => {
   !getToken() && (await login());
 
   if (!getToken()) {
-    notification.error({
+    window.antd.notification.error({
       message: "受权失败"
     });
 

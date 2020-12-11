@@ -35,7 +35,9 @@ export default {
   data() {
     return {
       formData: {
+        // 分类
         sort: undefined,
+        // 选择的文章ID
         id: undefined
       }
     };
@@ -48,22 +50,28 @@ export default {
     })
   },
   created() {
+    // 抓取分类
     this.fetchSorts();
   },
   methods: {
     ...mapActions(["getSorts", "getArticles"]),
+    // 抓取分类
     async fetchSorts() {
       try {
+        // 没数据时，抓取数据
         !this.sorts.data.length && (await this.getSorts());
       } catch (err) {
         // no todo
       }
 
       if (this.sorts.data.length) {
+        // 设置分类，设置为已选择或分类列表的第一个
         this.formData.sort = this.articles.sort || this.sorts.data[0].value;
+        // 抓取文章列表
         this.fetchArticles();
       }
     },
+    // 抓取文章列表
     async fetchArticles() {
       try {
         await this.getArticles(this.formData.sort);
@@ -76,12 +84,15 @@ export default {
           this.article.data.id &&
           this.article.data.sort.id === this.formData.sort
         ) {
+          // 已选择的文章
           this.formData.id = this.article.data.id;
         } else {
+          // 选择第一编文章
           this.formData.id = this.articles.data[0].value;
         }
       }
     },
+    // 开始打字
     play() {
       if (!this.formData.id) {
         this.$message.error("没有选择文章");

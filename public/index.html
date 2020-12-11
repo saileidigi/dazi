@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <% for (let css of htmlWebpackPlugin.options.cdn.css) { %>
+      <link href="<%= css %>" rel="preload" as="style">
+    <% } %>
+    <% for (let js of htmlWebpackPlugin.options.cdn.js) { %>
+      <link href="<%= js %>" rel="preload" as="script">
+    <% } %>
+    <% for (let css of htmlWebpackPlugin.options.cdn.css) { %>
+      <link rel="stylesheet" href="<%= css %>">
+    <% } %>
   </head>
   <body>
     <noscript>
@@ -29,5 +38,8 @@
       </div>
     <![endif]-->
     <!-- built files will be auto injected -->
+    <% for (let js of htmlWebpackPlugin.options.cdn.js) { %>
+      <script src="<%= js %>"></script>
+    <% } %>
   </body>
 </html>
