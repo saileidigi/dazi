@@ -1,4 +1,6 @@
-# dazi
+# 打字练习
+
+在线打字练习 [https://app.saileidigi.cn/dazi/](https://app.saileidigi.cn/dazi/)
 
 ## Project setup
 ```
