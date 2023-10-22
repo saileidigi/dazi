@@ -1,0 +1,11 @@
+version: "2" 
+services: 
+  node: 
+    image: "node:16" 
+    user: "root" 
+    working_dir: /home/node/my-app
+    environment: 
+      - NODE_ENV=production 
+    volumes: 
+      - ./:/home/node/my-app
+    command: "yarn build"

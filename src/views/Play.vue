@@ -4,8 +4,8 @@
       <!-- 标题 -->
       <template v-if="article.data.id" #title>
         {{ article.data.title }}
-        <template v-if="article.data.author.name">
-          - {{ article.data.author.name }}
+        <template v-if="article.data.author">
+          - {{ article.data.author }}
         </template>
       </template>
 
@@ -22,7 +22,7 @@
           ref="textarea"
           v-model="value"
           :style="textareaStyle"
-          @keydown.prevent.enter.up.down.left.right
+          @keydown.prevent.enter.up.down.left.right.ctrl
           @blur="pause"
           @focus="restore"
         />
@@ -195,11 +195,6 @@ export default {
         const index = val.length - over;
         this.value = val.slice(0, index) + "↵" + val.slice(index);
       } else {
-        this.$nextTick(() => {
-          // 定位输入框
-          this.handleTextareaStyle();
-        });
-
         if (!val) {
           // 无内容，算重新开始
           this.second = 0;
@@ -218,6 +213,11 @@ export default {
           this.doneModalVisible = true;
         }
       }
+
+      this.$nextTick(() => {
+        // 定位输入框
+        this.handleTextareaStyle();
+      });
     }
   },
   created() {
@@ -268,19 +268,26 @@ export default {
     // 输入框定位
     handleTextareaStyle() {
       if (!this.$refs.wordActive) return;
-      const { top } = this.textareaStyle;
+
+      const { oldOffsetTop, firstScrollY } = this.handleTextareaStyle;
+      const { offsetTop, offsetLeft } = this.$refs.wordActive.$el;
 
       this.textareaStyle = {
-        top: this.$refs.wordActive.$el.offsetTop + 44 + "px",
-        left: this.$refs.wordActive.$el.offsetLeft + "px"
+        top: offsetTop + 44 + "px",
+        left: offsetLeft + "px"
       };
 
-      // 换行，自动滚动窗口
-      if (
-        top !== this.textareaStyle.top &&
-        this.$refs.wordActive.$el.offsetTop
-      ) {
-        scrollTo({ top: scrollY + 108, behavior: "smooth" });
+      if (firstScrollY === undefined) {
+        this.handleTextareaStyle.firstScrollY = scrollY;
+      }
+
+      if (oldOffsetTop !== offsetTop) {
+        this.handleTextareaStyle.oldOffsetTop = offsetTop;
+
+        setTimeout(() => {
+          // 滚动窗口
+          scrollTo({ top: firstScrollY + offsetTop, behavior: "smooth" });
+        }, 100);
       }
     },
     // 重新开始
@@ -288,7 +295,10 @@ export default {
       this.isDone = false;
       this.doneModalVisible = false;
       this.value = "";
-      scrollTo({ top: 0, behavior: "smooth" });
+      scrollTo({
+        top: this.handleTextareaStyle.firstScrollY,
+        behavior: "smooth"
+      });
     }
   }
 };

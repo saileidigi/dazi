@@ -1,0 +1,14 @@
+version: "2" 
+services: 
+  node: 
+    image: "node:16" 
+    user: "root" 
+    working_dir: /home/node/my-app
+    environment: 
+      - NODE_ENV=development 
+    volumes: 
+      - ./:/home/node/my-app
+    network_mode: "host"
+    ports: 
+      - "6001:6001" 
+    command: bash -c "yarn && yarn serve"

@@ -1,12 +1,11 @@
 const path = require('path')
 
 process.env.VUE_APP_VERSION = require('./package.json').version
-const cdnRootPath = 'https://cdn.jsdelivr.net/gh/lin09/dist/dazi/'
 
 module.exports = {
   chainWebpack: config => {
     var min = process.env.NODE_ENV === 'production' ? '.min' : ''
-    var cdnUrlBase = 'https://cdn.jsdelivr.net/npm'
+    var cdnUrlBase = 'https://cdn.staticfile.org'
     var externals = {
       axios: 'axios',
       vue: 'Vue',
@@ -19,14 +18,14 @@ module.exports = {
 
     const cdn = {
       css: [
-        `${cdnUrlBase}/ant-design-vue@2.0.0-rc.3/dist/antd${min}.css`
+        `${cdnUrlBase}/ant-design-vue/2.0.0-rc.3/antd${min}.css`
       ],
       js: [
-        `${cdnUrlBase}/vue@3.0.4/dist/vue.global${min && '.prod'}.js`,
-        `${cdnUrlBase}/vuex@4.0.0-rc.2/dist/vuex.global${min && '.prod'}.js`,
-        `${cdnUrlBase}/vue-router@4.0.1/dist/vue-router.global${min && '.prod'}.js`,
-        `${cdnUrlBase}/axios@0.21.0/dist/axios${min}.js`,
-        `${cdnUrlBase}/ant-design-vue@2.0.0-rc.3/dist/antd${min}.js`
+        `${cdnUrlBase}/vue/3.0.4/vue.global${min && '.prod'}.js`,
+        `${cdnUrlBase}/vuex/4.0.0-rc.2/vuex.global${min && '.prod'}.js`,
+        `${cdnUrlBase}/vue-router/4.0.1/vue-router.global${min && '.prod'}.js`,
+        `${cdnUrlBase}/axios/0.21.0/axios${min}.js`,
+        `${cdnUrlBase}/ant-design-vue/2.0.0-rc.3/antd${min}.js`
       ]
     }
     // 通过 html-webpack-plugin 将 cdn 注入到 index.html 之中
@@ -48,15 +47,14 @@ module.exports = {
       }
     }
   },
-  outputDir: 'dazi',
   publicPath: process.env.NODE_ENV === 'production'
-  ? cdnRootPath
+  ? '/dazi'
   : '/',
   devServer: {
     port: 6001,
     historyApiFallback: true,
     disableHostCheck: true,
-    public: 'http://dazi.saileidigi.cn'
+    // public: 'http://dazi.useless-os.xyz'
   },
   pwa: {
     name: '打字练习',

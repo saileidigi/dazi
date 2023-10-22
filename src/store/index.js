@@ -109,8 +109,8 @@ export default createStore({
         .then(({ data }) => {
           data = data.map(item => {
             let label = item.title;
-            if (item.author.name) {
-              label += " - " + item.author.name;
+            if (item.author) {
+              label += " - " + item.author;
             }
             return { value: item.id, label };
           });

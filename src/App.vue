@@ -15,7 +15,9 @@
       </a-layout-content>
       <a-layout-footer style="text-align: center">
         打字练习 v.{{ APP_VERSION }} ©2020 Created by
-        <a href="https://www.saileidigi.cn" target="_blank">saileidigi.cn</a>
+        <a href="http://oos.useless-os.xyz" target="_blank"
+          >oos.useless-os.xyz</a
+        >
       </a-layout-footer>
     </a-layout>
   </a-layout>

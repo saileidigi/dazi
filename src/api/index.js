@@ -2,7 +2,7 @@ import createRequest from "@/utils/request";
 import { getToken, setToken } from "@/utils/token";
 
 export const request = createRequest({
-  baseURL: "https://system-api.oos.saileidigi.cn"
+  baseURL: "http://system-api.oos.useless-os.xyz"
 });
 
 export const login = () => {
