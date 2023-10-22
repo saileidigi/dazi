@@ -1,6 +1,6 @@
 # 打字练习
 
-在线打字练习 [https://app.useless-os.xyz/dazi/](https://app.useless-os.xyz/dazi/)
+在线打字练习 [http://app.useless-os.xyz/dazi/](http://app.useless-os.xyz/dazi/)
 
 ## Project setup
 ```
